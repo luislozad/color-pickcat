@@ -1,7 +1,7 @@
 {
   "name": "color-pickcat",
-  "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "version": "0.0.2",
+  "description": "The best color picker in the universe!",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -12,11 +12,16 @@
   "unpkg": "dist/color-pickcat/color-pickcat.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/luislozad/color-pickcat.git"
   },
   "files": [
     "dist/",
     "loader/"
+  ],
+  "keywords": [
+    "ux",
+    "color",
+    "color-picker"
   ],
   "scripts": {
     "build": "stencil build --docs",
