@@ -7,6 +7,7 @@ export { CpcContainerV3, defineCustomElement as defineCustomElementCpcContainerV
 export { CpcDivisorV1, defineCustomElement as defineCustomElementCpcDivisorV1 } from './cpc-divisor-v1.js';
 export { CpcEyeDropper, defineCustomElement as defineCustomElementCpcEyeDropper } from './cpc-eye-dropper.js';
 export { CpcHueControl, defineCustomElement as defineCustomElementCpcHueControl } from './cpc-hue-control.js';
+export { CpcInputAlpha, defineCustomElement as defineCustomElementCpcInputAlpha } from './cpc-input-alpha.js';
 export { CpcInputColor, defineCustomElement as defineCustomElementCpcInputColor } from './cpc-input-color.js';
 export { CpcInputNumberV2, defineCustomElement as defineCustomElementCpcInputNumberV2 } from './cpc-input-number-v2.js';
 export { CpcInputV1, defineCustomElement as defineCustomElementCpcInputV1 } from './cpc-input-v1.js';

@@ -8,13 +8,16 @@ export class CpcInputColor {
     this.openMenu = false;
   }
   render() {
-    return (h(Host, null, h("cpc-container-v3", { active: this.containerActive, class: 'flex', onRestoreState: ({ detail }) => this.containerActive = detail.state }, h("div", { class: 'w-full pl-2 cursor-text' }, h("cpc-input-v1", { selection: this.inputSelection, class: 'text-sm uppercase w-full h-full pb-0.5', value: this.value })), h("cpc-menu-v1", { openMenu: this.openMenu, data: [{ items: this.colors }], onItem: ({ detail }) => this.handlerMenuSelection(detail.name), onClick: () => this.handlerOpenMenu() }))));
+    return (h(Host, null, h("cpc-container-v3", { active: this.containerActive, class: 'flex', onRestoreState: ({ detail }) => this.containerActive = detail.state }, h("div", { class: 'w-full pl-2 cursor-text' }, h("cpc-input-v1", { onInputChange: ({ detail }) => this.onInputChange(detail), selection: this.inputSelection, class: 'text-sm uppercase w-full h-full pb-0.5', value: this.value })), h("cpc-menu-v1", { openMenu: this.openMenu, data: [{ items: this.colors }], onItem: ({ detail }) => this.handlerMenuSelection(detail.name), onClick: () => this.handlerOpenMenu() }))));
   }
   handleClick() {
     if (!this.containerActive) {
       this.containerActive = true;
       //this.inputSelection = true;
     }
+  }
+  onInputChange(detail) {
+    this.inputChangeEvent.emit(detail);
   }
   handlerMenuSelection(currentColor) {
     this.selectedColor.emit({ currentColor });
@@ -94,6 +97,26 @@ export class CpcInputColor {
           "original": "{ currentColor: string }",
           "resolved": "{ currentColor: string; }",
           "references": {}
+        }
+      }, {
+        "method": "inputChangeEvent",
+        "name": "inputChange",
+        "bubbles": true,
+        "cancelable": true,
+        "composed": true,
+        "docs": {
+          "tags": [],
+          "text": ""
+        },
+        "complexType": {
+          "original": "InputEvent",
+          "resolved": "InputEvent",
+          "references": {
+            "InputEvent": {
+              "location": "import",
+              "path": "../cpc-input-v1/cpc-input-v1"
+            }
+          }
         }
       }];
   }

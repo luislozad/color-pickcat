@@ -1,8 +1,10 @@
 import { Component, Host, h, Prop, State, Element, Event, EventEmitter, Watch } from '@stencil/core';
-import { calcPositionPoint, convertToHSVA } from '../../utils';
+import { calcPositionPoint, convertToHSVA, isAlphaValid } from '../../utils';
 import { colord, HsvaColor } from 'colord';
 import { Position, SelectedColorDetail } from '../cpc-color-area/cpc-color-area';
 import { HueEvent } from '../cpc-hue-control/cpc-hue-control';
+import { AlphaEvent } from '../cpc-alpha-control/cpc-alpha-control';
+import { InputEvent } from '../cpc-input-v1/cpc-input-v1';
 
 export interface ColorEvent {
   value: string;
@@ -39,12 +41,13 @@ export class ColorPickcat {
   @Element() ref: HTMLElement;
 
   @Event({ eventName: 'color' }) colorEvent: EventEmitter<ColorEvent>;
+  @Event({ eventName: 'alpha' }) alphaEvent: EventEmitter<AlphaEvent>;
   
   private colorTypes: string[] = ['RGB', 'HSL', 'HEX'];
 
   render() {
     return (
-      <Host id='clr-picker' class='clr-picker'>
+      <Host class='clr-picker'>
 
         <cpc-color-area 
           onLoadedComponent={({ detail }) => this.init(detail.selectedColorDetail)} 
@@ -64,29 +67,27 @@ export class ColorPickcat {
             </cpc-hue-control>
 
             <cpc-alpha-control 
-              alpha={this.alphaValue} 
-              onAlphaValue={({ detail }) => this.alphaValue = detail.value} 
+              alpha={this.alphaValue}
+              onAlphaValue={({ detail }) => this.onAlphaValue(detail)} 
               color={this.colorMarker}>
             </cpc-alpha-control>
 
-            <cpc-input-color 
+            <cpc-input-color
+              onInputChange={({ detail }) => this.onInputColorChange(detail)}
               value={this.convertColorType(this.colorType, this.colorMarker)} 
               colors={this.colorTypes} 
               onSelectedColor={({ detail }) => this.colorType = detail.currentColor}>
             </cpc-input-color>
           </div>
 
-          <div class={'ml-2 flex flex-col w-16 space-y-1.5'}>
+          <div class={'ml-2 flex flex-col w-16 justify-between'}>
             <cpc-eye-dropper onGetColor={(e) => this.handlerEyeDropper(e)} class={'mt-2'}></cpc-eye-dropper>
 
-            <cpc-container-v3>
-              <cpc-input-number-v2
-                class={'pb-0.5'} 
-                value={`${Math.floor(this.alphaValue)}%`} 
-                onIncrement={() => this.alphaValue === 100 ? 100 : this.alphaValue++}
-                onDecrement={() => this.alphaValue === 0 ? 0 : this.alphaValue--}>
-              </cpc-input-number-v2>
-            </cpc-container-v3>
+            <cpc-input-alpha 
+              value={this.alphaValue}
+              onInputAlphaChange={({ detail }) => this.onInputAlphaChange(detail)}
+              onAlphaValue={({ detail }) => this.onAlphaValue(detail)}>
+            </cpc-input-alpha>
           </div>
         </div>
 
@@ -95,8 +96,47 @@ export class ColorPickcat {
   }
 
   @Watch('colorMarker')
-  onColorMarker() {
+  onStateColorMarker() {
     this.colorEvent.emit({ value: this.colorMarker });
+  }
+
+  @Watch('alphaValue')
+  onStateAlphaValue() {
+    this.alphaEvent.emit({ value: this.alphaValue });
+  }
+
+  onInputAlphaChange(detail: InputEvent) {
+    const alphaValue = Number(detail.change.value.replace('%', ''));
+    
+    if (!isNaN(alphaValue) && alphaValue !== this.alphaValue) {
+      if (isAlphaValid(alphaValue, { min: 0, max: 100 })) {
+        this.alphaValue = alphaValue;
+      }
+    }
+  }
+
+  // Se activa cuando el usuario tipea manualmente un color
+  // Valida que sea un color real y actualiza la UI
+  // Si el color tipeado contiene un canal alpha, es separado para solo mostrar el color sin ese canal
+  // esto lo hago para tener la UI limpia visualmente
+  onInputColorChange(detail: InputEvent) {
+    const newColor = detail.change.value;
+    if (newColor !== this.colorMarker) {
+      if (colord(newColor).isValid()) {
+        if (colord(newColor).alpha() === 1) {
+          this.updateUIColor(newColor);
+        } else {
+          const { r, g, b, a } = colord(newColor).toRgb();
+          const newColorWithoutAlpha = colord({ r, g, b }).toHex();
+          this.updateUIColor(newColorWithoutAlpha);
+          this.alphaValue = a * 100;
+        }
+      }
+    }
+  }
+
+  onAlphaValue(alpha: AlphaEvent) {
+    this.alphaValue = alpha.value;
   }
 
   onSelectedColor(detail: SelectedColorDetail) {
@@ -211,14 +251,18 @@ export class ColorPickcat {
 
     return newColorAreaDetail;
   }
+  
+  updateUIColor(color: string) {
+    const newColorAreaDetail = this.newSelectedColorDetail(color);
+    
+    this.setSelectedColorDetail(newColorAreaDetail);
+    
+    this.colorArea = this.getColorArea(color);    
+  }
 
   handlerEyeDropper({ detail }: { detail: { sRGBHex: string } }) {
     const { sRGBHex } = detail;
     
-    const newColorAreaDetail = this.newSelectedColorDetail(sRGBHex);
-    
-    this.setSelectedColorDetail(newColorAreaDetail);
-    
-    this.colorArea = this.getColorArea(sRGBHex);
+    this.updateUIColor(sRGBHex);
   }
 }

@@ -15,17 +15,19 @@
 
 ## Events
 
-| Event       | Description | Type                              |
-| ----------- | ----------- | --------------------------------- |
-| `decrement` |             | `CustomEvent<{ value: number; }>` |
-| `increment` |             | `CustomEvent<{ value: number; }>` |
+| Event            | Description | Type                              |
+| ---------------- | ----------- | --------------------------------- |
+| `cleanSelection` |             | `CustomEvent<InputEvent>`         |
+| `decrement`      |             | `CustomEvent<{ value: number; }>` |
+| `increment`      |             | `CustomEvent<{ value: number; }>` |
+| `inputChange`    |             | `CustomEvent<InputEvent>`         |
 
 
 ## Dependencies
 
 ### Used by
 
- - [color-pickcat](../color-pickcat)
+ - [cpc-input-alpha](../cpc-input-alpha)
 
 ### Depends on
 
@@ -35,7 +37,7 @@
 ```mermaid
 graph TD;
   cpc-input-number-v2 --> cpc-input-v1
-  color-pickcat --> cpc-input-number-v2
+  cpc-input-alpha --> cpc-input-number-v2
   style cpc-input-number-v2 fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

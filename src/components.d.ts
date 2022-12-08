@@ -7,9 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ColorEvent } from "./components/color-pickcat/color-pickcat";
 import { AlphaEvent } from "./components/cpc-alpha-control/cpc-alpha-control";
+import { AlphaEvent as AlphaEvent1 } from "./components/cpc-alpha-control/cpc-alpha-control";
 import { Position, SelectedColorDetail } from "./components/cpc-color-area/cpc-color-area";
 import { HueEvent } from "./components/cpc-hue-control/cpc-hue-control";
+import { AlphaValueEvent } from "./components/cpc-input-alpha/cpc-input-alpha";
 import { InputEvent } from "./components/cpc-input-v1/cpc-input-v1";
+import { InputEvent as InputEvent1 } from "./components/cpc-input-v1/cpc-input-v1";
 import { CpcMenuV1Hover, CpcMenuV1Item, CpcMenuV1Props } from "./components/cpc-menu-v1/cpc-menu-v1";
 export namespace Components {
     interface ColorPickcat {
@@ -38,6 +41,9 @@ export namespace Components {
     }
     interface CpcHueControl {
         "value"?: number;
+    }
+    interface CpcInputAlpha {
+        "value": number;
     }
     interface CpcInputColor {
         "colors": string[];
@@ -82,6 +88,10 @@ export interface CpcEyeDropperCustomEvent<T> extends CustomEvent<T> {
 export interface CpcHueControlCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLCpcHueControlElement;
+}
+export interface CpcInputAlphaCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCpcInputAlphaElement;
 }
 export interface CpcInputColorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -148,6 +158,12 @@ declare global {
         prototype: HTMLCpcHueControlElement;
         new (): HTMLCpcHueControlElement;
     };
+    interface HTMLCpcInputAlphaElement extends Components.CpcInputAlpha, HTMLStencilElement {
+    }
+    var HTMLCpcInputAlphaElement: {
+        prototype: HTMLCpcInputAlphaElement;
+        new (): HTMLCpcInputAlphaElement;
+    };
     interface HTMLCpcInputColorElement extends Components.CpcInputColor, HTMLStencilElement {
     }
     var HTMLCpcInputColorElement: {
@@ -187,6 +203,7 @@ declare global {
         "cpc-divisor-v1": HTMLCpcDivisorV1Element;
         "cpc-eye-dropper": HTMLCpcEyeDropperElement;
         "cpc-hue-control": HTMLCpcHueControlElement;
+        "cpc-input-alpha": HTMLCpcInputAlphaElement;
         "cpc-input-color": HTMLCpcInputColorElement;
         "cpc-input-number-v2": HTMLCpcInputNumberV2Element;
         "cpc-input-v1": HTMLCpcInputV1Element;
@@ -198,6 +215,7 @@ declare namespace LocalJSX {
     interface ColorPickcat {
         "colorArea"?: string;
         "colorMarker"?: string;
+        "onAlpha"?: (event: ColorPickcatCustomEvent<AlphaEvent>) => void;
         "onColor"?: (event: ColorPickcatCustomEvent<ColorEvent>) => void;
     }
     interface CpcAlphaControl {
@@ -231,15 +249,23 @@ declare namespace LocalJSX {
         "onHueValue"?: (event: CpcHueControlCustomEvent<HueEvent>) => void;
         "value"?: number;
     }
+    interface CpcInputAlpha {
+        "onAlphaValue"?: (event: CpcInputAlphaCustomEvent<AlphaValueEvent>) => void;
+        "onInputAlphaChange"?: (event: CpcInputAlphaCustomEvent<InputEvent>) => void;
+        "value"?: number;
+    }
     interface CpcInputColor {
         "colors"?: string[];
+        "onInputChange"?: (event: CpcInputColorCustomEvent<InputEvent>) => void;
         "onSelectedColor"?: (event: CpcInputColorCustomEvent<{ currentColor: string }>) => void;
         "value"?: string;
     }
     interface CpcInputNumberV2 {
         "label"?: string;
+        "onCleanSelection"?: (event: CpcInputNumberV2CustomEvent<InputEvent>) => void;
         "onDecrement"?: (event: CpcInputNumberV2CustomEvent<{ value: number }>) => void;
         "onIncrement"?: (event: CpcInputNumberV2CustomEvent<{ value: number }>) => void;
+        "onInputChange"?: (event: CpcInputNumberV2CustomEvent<InputEvent>) => void;
         "value"?: number | string;
     }
     interface CpcInputV1 {
@@ -267,6 +293,7 @@ declare namespace LocalJSX {
         "cpc-divisor-v1": CpcDivisorV1;
         "cpc-eye-dropper": CpcEyeDropper;
         "cpc-hue-control": CpcHueControl;
+        "cpc-input-alpha": CpcInputAlpha;
         "cpc-input-color": CpcInputColor;
         "cpc-input-number-v2": CpcInputNumberV2;
         "cpc-input-v1": CpcInputV1;
@@ -286,6 +313,7 @@ declare module "@stencil/core" {
             "cpc-divisor-v1": LocalJSX.CpcDivisorV1 & JSXBase.HTMLAttributes<HTMLCpcDivisorV1Element>;
             "cpc-eye-dropper": LocalJSX.CpcEyeDropper & JSXBase.HTMLAttributes<HTMLCpcEyeDropperElement>;
             "cpc-hue-control": LocalJSX.CpcHueControl & JSXBase.HTMLAttributes<HTMLCpcHueControlElement>;
+            "cpc-input-alpha": LocalJSX.CpcInputAlpha & JSXBase.HTMLAttributes<HTMLCpcInputAlphaElement>;
             "cpc-input-color": LocalJSX.CpcInputColor & JSXBase.HTMLAttributes<HTMLCpcInputColorElement>;
             "cpc-input-number-v2": LocalJSX.CpcInputNumberV2 & JSXBase.HTMLAttributes<HTMLCpcInputNumberV2Element>;
             "cpc-input-v1": LocalJSX.CpcInputV1 & JSXBase.HTMLAttributes<HTMLCpcInputV1Element>;

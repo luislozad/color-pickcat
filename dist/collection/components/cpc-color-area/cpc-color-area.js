@@ -6,7 +6,10 @@ export class CpcColorArea {
     this.colorAreaDims = { width: 0, height: 0, x: 0, y: 0 };
     this.offset = { x: 0, y: 0 };
     this.loaded = false;
-    this.handlerMoveMarker = (e) => this.moveMarker(e);
+    this.handlerMoveMarker = (e) => {
+      this.updateColorAreaDims();
+      this.moveMarker(e);
+    };
     this.colorArea = '#FF0000';
     this.colorMarker = '#FFFFFF';
     this.handlerRadius = 0;
@@ -97,8 +100,8 @@ export class CpcColorArea {
   }
   getPointerPosition(event) {
     return {
-      pageX: event.pageX,
-      pageY: event.pageY
+      pageX: event.changedTouches ? event.changedTouches[0].pageX : event.pageX,
+      pageY: event.changedTouches ? event.changedTouches[0].pageY : event.pageY
     };
   }
   setPositionMarker(x, y) {

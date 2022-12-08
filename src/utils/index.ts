@@ -49,3 +49,12 @@ export function convertToHSVA(x: number, y: number, opts: { hue: number; width: 
   
   return hsva;
 }
+
+export function isAlphaValid(number: number, opts: { min: number; max: number; }) {
+  const { min, max } = opts;
+
+  if (number <= max && number >= min) {
+    return true;
+  }
+  return false;
+}

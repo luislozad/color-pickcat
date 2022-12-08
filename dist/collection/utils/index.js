@@ -42,3 +42,10 @@ export function convertToHSVA(x, y, opts) {
   };
   return hsva;
 }
+export function isAlphaValid(number, opts) {
+  const { min, max } = opts;
+  if (number <= max && number >= min) {
+    return true;
+  }
+  return false;
+}

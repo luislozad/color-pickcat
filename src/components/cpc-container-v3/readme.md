@@ -23,15 +23,15 @@
 
 ### Used by
 
- - [color-pickcat](../color-pickcat)
  - [cpc-eye-dropper](../cpc-eye-dropper)
+ - [cpc-input-alpha](../cpc-input-alpha)
  - [cpc-input-color](../cpc-input-color)
 
 ### Graph
 ```mermaid
 graph TD;
-  color-pickcat --> cpc-container-v3
   cpc-eye-dropper --> cpc-container-v3
+  cpc-input-alpha --> cpc-container-v3
   cpc-input-color --> cpc-container-v3
   style cpc-container-v3 fill:#f9f,stroke:#333,stroke-width:4px
 ```

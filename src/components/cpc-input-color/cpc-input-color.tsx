@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, h, Host, Listen, Prop, State } from '@stencil/core';
+import { InputEvent } from '../cpc-input-v1/cpc-input-v1';
 
 @Component({
   tag: 'cpc-input-color',
@@ -16,13 +17,19 @@ export class CpcInputColor {
   @State() openMenu: boolean = false;
 
   @Event({ eventName: 'selectedColor' }) selectedColor: EventEmitter<{ currentColor: string }>;
+  @Event({ eventName: 'inputChange' }) inputChangeEvent: EventEmitter<InputEvent>;
 
   render() {
     return (
       <Host>
         <cpc-container-v3 active={this.containerActive} class={'flex'} onRestoreState={({ detail }) => this.containerActive = detail.state}>
           <div class={'w-full pl-2 cursor-text'}>
-            <cpc-input-v1 selection={this.inputSelection} class={'text-sm uppercase w-full h-full pb-0.5'} value={this.value}></cpc-input-v1>
+            <cpc-input-v1
+              onInputChange={({ detail }) => this.onInputChange(detail)}
+              selection={this.inputSelection} 
+              class={'text-sm uppercase w-full h-full pb-0.5'} 
+              value={this.value}>
+            </cpc-input-v1>
           </div>
           <cpc-menu-v1 
             openMenu={this.openMenu} 
@@ -41,6 +48,10 @@ export class CpcInputColor {
       this.containerActive = true;
       //this.inputSelection = true;
     }
+  }
+
+  onInputChange(detail: InputEvent) {
+    this.inputChangeEvent.emit(detail);
   }
 
   handlerMenuSelection(currentColor: string) {

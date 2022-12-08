@@ -1,5 +1,5 @@
 import { Host, h } from '@stencil/core';
-import { calcPositionPoint, convertToHSVA } from '../../utils';
+import { calcPositionPoint, convertToHSVA, isAlphaValid } from '../../utils';
 import { colord } from 'colord';
 export class ColorPickcat {
   constructor() {
@@ -14,10 +14,44 @@ export class ColorPickcat {
     this.handlerPos = undefined;
   }
   render() {
-    return (h(Host, { id: 'clr-picker', class: 'clr-picker' }, h("cpc-color-area", { onLoadedComponent: ({ detail }) => this.init(detail.selectedColorDetail), colorMarker: this.colorMarker, colorArea: this.colorArea, handlerPos: this.handlerPos, onSelectedColor: ({ detail }) => this.onSelectedColor(detail) }), h("div", { class: 'flex' }, h("div", { class: 'space-y-2.5' }, h("cpc-hue-control", { value: colord(this.colorArea).hue(), class: 'mt-2.5', onHueValue: ({ detail }) => this.onHueValue(detail) }), h("cpc-alpha-control", { alpha: this.alphaValue, onAlphaValue: ({ detail }) => this.alphaValue = detail.value, color: this.colorMarker }), h("cpc-input-color", { value: this.convertColorType(this.colorType, this.colorMarker), colors: this.colorTypes, onSelectedColor: ({ detail }) => this.colorType = detail.currentColor })), h("div", { class: 'ml-2 flex flex-col w-16 space-y-1.5' }, h("cpc-eye-dropper", { onGetColor: (e) => this.handlerEyeDropper(e), class: 'mt-2' }), h("cpc-container-v3", null, h("cpc-input-number-v2", { class: 'pb-0.5', value: `${Math.floor(this.alphaValue)}%`, onIncrement: () => this.alphaValue === 100 ? 100 : this.alphaValue++, onDecrement: () => this.alphaValue === 0 ? 0 : this.alphaValue-- }))))));
+    return (h(Host, { class: 'clr-picker' }, h("cpc-color-area", { onLoadedComponent: ({ detail }) => this.init(detail.selectedColorDetail), colorMarker: this.colorMarker, colorArea: this.colorArea, handlerPos: this.handlerPos, onSelectedColor: ({ detail }) => this.onSelectedColor(detail) }), h("div", { class: 'flex' }, h("div", { class: 'space-y-2.5' }, h("cpc-hue-control", { value: colord(this.colorArea).hue(), class: 'mt-2.5', onHueValue: ({ detail }) => this.onHueValue(detail) }), h("cpc-alpha-control", { alpha: this.alphaValue, onAlphaValue: ({ detail }) => this.onAlphaValue(detail), color: this.colorMarker }), h("cpc-input-color", { onInputChange: ({ detail }) => this.onInputColorChange(detail), value: this.convertColorType(this.colorType, this.colorMarker), colors: this.colorTypes, onSelectedColor: ({ detail }) => this.colorType = detail.currentColor })), h("div", { class: 'ml-2 flex flex-col w-16 justify-between' }, h("cpc-eye-dropper", { onGetColor: (e) => this.handlerEyeDropper(e), class: 'mt-2' }), h("cpc-input-alpha", { value: this.alphaValue, onInputAlphaChange: ({ detail }) => this.onInputAlphaChange(detail), onAlphaValue: ({ detail }) => this.onAlphaValue(detail) })))));
   }
-  onColorMarker() {
+  onStateColorMarker() {
     this.colorEvent.emit({ value: this.colorMarker });
+  }
+  onStateAlphaValue() {
+    this.alphaEvent.emit({ value: this.alphaValue });
+  }
+  onInputAlphaChange(detail) {
+    const alphaValue = Number(detail.change.value.replace('%', ''));
+    if (!isNaN(alphaValue) && alphaValue !== this.alphaValue) {
+      if (isAlphaValid(alphaValue, { min: 0, max: 100 })) {
+        this.alphaValue = alphaValue;
+      }
+    }
+  }
+  // Se activa cuando el usuario tipea manualmente un color
+  // Valida que sea un color real y actualiza la UI
+  // Si el color tipeado contiene un canal alpha, es separado para solo mostrar el color sin ese canal
+  // esto lo hago para tener la UI limpia visualmente
+  onInputColorChange(detail) {
+    const newColor = detail.change.value;
+    if (newColor !== this.colorMarker) {
+      if (colord(newColor).isValid()) {
+        if (colord(newColor).alpha() === 1) {
+          this.updateUIColor(newColor);
+        }
+        else {
+          const { r, g, b, a } = colord(newColor).toRgb();
+          const newColorWithoutAlpha = colord({ r, g, b }).toHex();
+          this.updateUIColor(newColorWithoutAlpha);
+          this.alphaValue = a * 100;
+        }
+      }
+    }
+  }
+  onAlphaValue(alpha) {
+    this.alphaValue = alpha.value;
   }
   onSelectedColor(detail) {
     this.setSelectedColorDetail(detail);
@@ -104,11 +138,14 @@ export class ColorPickcat {
     newColorAreaDetail.pos = newPos;
     return newColorAreaDetail;
   }
+  updateUIColor(color) {
+    const newColorAreaDetail = this.newSelectedColorDetail(color);
+    this.setSelectedColorDetail(newColorAreaDetail);
+    this.colorArea = this.getColorArea(color);
+  }
   handlerEyeDropper({ detail }) {
     const { sRGBHex } = detail;
-    const newColorAreaDetail = this.newSelectedColorDetail(sRGBHex);
-    this.setSelectedColorDetail(newColorAreaDetail);
-    this.colorArea = this.getColorArea(sRGBHex);
+    this.updateUIColor(sRGBHex);
   }
   static get is() { return "color-pickcat"; }
   static get encapsulation() { return "shadow"; }
@@ -192,13 +229,36 @@ export class ColorPickcat {
             }
           }
         }
+      }, {
+        "method": "alphaEvent",
+        "name": "alpha",
+        "bubbles": true,
+        "cancelable": true,
+        "composed": true,
+        "docs": {
+          "tags": [],
+          "text": ""
+        },
+        "complexType": {
+          "original": "AlphaEvent",
+          "resolved": "AlphaEvent",
+          "references": {
+            "AlphaEvent": {
+              "location": "import",
+              "path": "../cpc-alpha-control/cpc-alpha-control"
+            }
+          }
+        }
       }];
   }
   static get elementRef() { return "ref"; }
   static get watchers() {
     return [{
         "propName": "colorMarker",
-        "methodName": "onColorMarker"
+        "methodName": "onStateColorMarker"
+      }, {
+        "propName": "alphaValue",
+        "methodName": "onStateAlphaValue"
       }];
   }
 }

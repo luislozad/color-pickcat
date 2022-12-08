@@ -17,6 +17,7 @@
 
 | Event   | Description | Type                      |
 | ------- | ----------- | ------------------------- |
+| `alpha` |             | `CustomEvent<AlphaEvent>` |
 | `color` |             | `CustomEvent<ColorEvent>` |
 
 
@@ -29,8 +30,7 @@
 - [cpc-alpha-control](../cpc-alpha-control)
 - [cpc-input-color](../cpc-input-color)
 - [cpc-eye-dropper](../cpc-eye-dropper)
-- [cpc-container-v3](../cpc-container-v3)
-- [cpc-input-number-v2](../cpc-input-number-v2)
+- [cpc-input-alpha](../cpc-input-alpha)
 
 ### Graph
 ```mermaid
@@ -40,8 +40,7 @@ graph TD;
   color-pickcat --> cpc-alpha-control
   color-pickcat --> cpc-input-color
   color-pickcat --> cpc-eye-dropper
-  color-pickcat --> cpc-container-v3
-  color-pickcat --> cpc-input-number-v2
+  color-pickcat --> cpc-input-alpha
   cpc-input-color --> cpc-container-v3
   cpc-input-color --> cpc-input-v1
   cpc-input-color --> cpc-menu-v1
@@ -49,6 +48,8 @@ graph TD;
   cpc-menu-v1 --> cpc-divisor-v1
   cpc-menu-v1 --> cpc-popup-v1
   cpc-eye-dropper --> cpc-container-v3
+  cpc-input-alpha --> cpc-container-v3
+  cpc-input-alpha --> cpc-input-number-v2
   cpc-input-number-v2 --> cpc-input-v1
   style color-pickcat fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -19,3 +19,7 @@ export declare function convertToHSVA(x: number, y: number, opts: {
   v: number;
   a: number;
 };
+export declare function isAlphaValid(number: number, opts: {
+  min: number;
+  max: number;
+}): boolean;

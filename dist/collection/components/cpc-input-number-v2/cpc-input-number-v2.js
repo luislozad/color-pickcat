@@ -13,7 +13,13 @@ export class CpcInputNumberV2 {
   }
   render() {
     const displayControls = this.toggle ? 'flex' : 'hidden';
-    return (h(Host, null, h("cpc-input-v1", { class: `w-px h-8 grow cursor-text text-[#333333] text-sm`, value: this.value }), this.label && !this.toggle ? (h("div", { class: 'text-[10px] uppercase pr-2' }, this.label)) : null, h("div", { class: `w-5 flex flex-col self-stretch ${displayControls}` }, h("div", { onMouseDown: () => this.incMouseDown(), onMouseUp: () => this.incMouseUp(), class: 'flex cursor-pointer h-px grow justify-center items-center', innerHTML: UpIcon }), h("div", { onMouseDown: () => this.decMouseDown(), onMouseUp: () => this.decMouseUp(), class: 'flex cursor-pointer h-px grow justify-center items-center', innerHTML: DownIcon }))));
+    return (h(Host, null, h("cpc-input-v1", { class: `w-px h-8 grow cursor-text text-[#333333] text-sm`, onInputChange: ({ detail }) => this.onInputChangeEvent(detail), onInputCleanSelection: ({ detail }) => this.onInputCleanSelection(detail), value: this.value }), this.label && !this.toggle ? (h("div", { class: 'text-[10px] uppercase pr-2' }, this.label)) : null, h("div", { class: `w-5 flex flex-col self-stretch ${displayControls}` }, h("div", { onMouseDown: () => this.incMouseDown(), onMouseUp: () => this.incMouseUp(), class: 'flex cursor-pointer h-px grow justify-center items-center', innerHTML: UpIcon }), h("div", { onMouseDown: () => this.decMouseDown(), onMouseUp: () => this.decMouseUp(), class: 'flex cursor-pointer h-px grow justify-center items-center', innerHTML: DownIcon }))));
+  }
+  onInputChangeEvent(detail) {
+    this.inputChangeEvent.emit(detail);
+  }
+  onInputCleanSelection(detail) {
+    this.cleanSelectionEvent.emit({ cleanSelection: detail.cleanSelection });
   }
   incMouseDown() {
     this.incEvent.emit({ value: +1 });
@@ -158,6 +164,46 @@ export class CpcInputNumberV2 {
           "original": "{ value: number }",
           "resolved": "{ value: number; }",
           "references": {}
+        }
+      }, {
+        "method": "inputChangeEvent",
+        "name": "inputChange",
+        "bubbles": true,
+        "cancelable": true,
+        "composed": true,
+        "docs": {
+          "tags": [],
+          "text": ""
+        },
+        "complexType": {
+          "original": "InputEvent",
+          "resolved": "InputEvent",
+          "references": {
+            "InputEvent": {
+              "location": "import",
+              "path": "../cpc-input-v1/cpc-input-v1"
+            }
+          }
+        }
+      }, {
+        "method": "cleanSelectionEvent",
+        "name": "cleanSelection",
+        "bubbles": true,
+        "cancelable": true,
+        "composed": true,
+        "docs": {
+          "tags": [],
+          "text": ""
+        },
+        "complexType": {
+          "original": "InputEvent",
+          "resolved": "InputEvent",
+          "references": {
+            "InputEvent": {
+              "location": "import",
+              "path": "../cpc-input-v1/cpc-input-v1"
+            }
+          }
         }
       }];
   }

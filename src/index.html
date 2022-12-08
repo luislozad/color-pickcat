@@ -7,8 +7,23 @@
 
     <script type="module" src="/build/color-pickcat.esm.js"></script>
     <script nomodule src="/build/color-pickcat.js"></script>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container > :nth-child(even) {
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
-    <color-pickcat></color-pickcat>
+    <div class="container">
+      <color-pickcat></color-pickcat>
+      <color-pickcat></color-pickcat>
+    </div>
   </body>
 </html>

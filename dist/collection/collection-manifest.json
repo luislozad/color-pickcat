@@ -2,9 +2,10 @@
   "entries": [
     "./components/cpc-color-area/cpc-color-area.js",
     "./components/cpc-hue-control/cpc-hue-control.js",
-    "./components/color-pickcat/color-pickcat.js",
     "./components/cpc-alpha-control/cpc-alpha-control.js",
     "./components/cpc-input-v1/cpc-input-v1.js",
+    "./components/color-pickcat/color-pickcat.js",
+    "./components/cpc-input-alpha/cpc-input-alpha.js",
     "./components/cpc-menu-v1/cpc-menu-v1.js",
     "./components/cpc-button-v3/cpc-button-v3.js",
     "./components/cpc-container-v3/cpc-container-v3.js",

@@ -1,4 +1,5 @@
 import { EventEmitter } from '../../stencil-public-runtime';
+import { InputEvent } from '../cpc-input-v1/cpc-input-v1';
 export declare class CpcInputNumberV2 {
   value?: number | string;
   label?: string;
@@ -9,11 +10,15 @@ export declare class CpcInputNumberV2 {
   decEvent: EventEmitter<{
     value: number;
   }>;
+  inputChangeEvent: EventEmitter<InputEvent>;
+  cleanSelectionEvent: EventEmitter<InputEvent>;
   private numberOfTimesPressed;
   private incPressed;
   private decPressed;
   private initState;
   render(): any;
+  onInputChangeEvent(detail: InputEvent): void;
+  onInputCleanSelection(detail: InputEvent): void;
   incMouseDown(): void;
   incMouseUp(): void;
   decMouseDown(): void;

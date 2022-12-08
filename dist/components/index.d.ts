@@ -7,6 +7,7 @@ export { CpcContainerV3 as CpcContainerV3 } from '../types/components/cpc-contai
 export { CpcDivisorV1 as CpcDivisorV1 } from '../types/components/cpc-divisor-v1/cpc-divisor-v1';
 export { CpcEyeDropper as CpcEyeDropper } from '../types/components/cpc-eye-dropper/cpc-eye-dropper';
 export { CpcHueControl as CpcHueControl } from '../types/components/cpc-hue-control/cpc-hue-control';
+export { CpcInputAlpha as CpcInputAlpha } from '../types/components/cpc-input-alpha/cpc-input-alpha';
 export { CpcInputColor as CpcInputColor } from '../types/components/cpc-input-color/cpc-input-color';
 export { CpcInputNumberV2 as CpcInputNumberV2 } from '../types/components/cpc-input-number-v2/cpc-input-number-v2';
 export { CpcInputV1 as CpcInputV1 } from '../types/components/cpc-input-v1/cpc-input-v1';

@@ -101,7 +101,10 @@ export class CpcColorArea {
     }
   }
 
-  handlerMoveMarker = (e: MouseEvent) => this.moveMarker(e);
+  handlerMoveMarker = (e: MouseEvent & TouchEvent) => {
+    this.updateColorAreaDims();
+    this.moveMarker(e);
+  };
 
   getColorArea() {
     const colorArea = this.colorArea;
@@ -160,7 +163,7 @@ export class CpcColorArea {
   }
 
   @Listen('click')
-  handleClick(e: MouseEvent) {
+  handleClick(e: MouseEvent & TouchEvent) {
     this.handlerMoveMarker(e);
   }
 
@@ -169,10 +172,10 @@ export class CpcColorArea {
     this.updatePositionMarker();
   }
 
-  getPointerPosition(event: MouseEvent) {
+  getPointerPosition(event: MouseEvent & TouchEvent) {
     return {
-      pageX: event.pageX,
-      pageY: event.pageY
+      pageX: event.changedTouches ? event.changedTouches[0].pageX : event.pageX,
+      pageY: event.changedTouches ? event.changedTouches[0].pageY : event.pageY
     };
   }
 
@@ -181,7 +184,7 @@ export class CpcColorArea {
     this.refMarker.style.top = `${y}px`;    
   }
 
-  moveMarker(event: MouseEvent) {
+  moveMarker(event: MouseEvent & TouchEvent) {
     const pointer = this.getPointerPosition(event);
     let x = pointer.pageX - this.colorAreaDims.x;
     let y = pointer.pageY - this.colorAreaDims.y;
@@ -190,7 +193,7 @@ export class CpcColorArea {
     y = (y < 0) ? 0 : (y > this.colorAreaDims.height) ? this.colorAreaDims.height : y;
 
     this.setPositionMarker(x, y);
-
+  
     this.selectedColorEmit(x, y);
 
     // Prevent scrolling while dragging the marker

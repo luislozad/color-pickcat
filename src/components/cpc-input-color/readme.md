@@ -17,6 +17,7 @@
 
 | Event           | Description | Type                                     |
 | --------------- | ----------- | ---------------------------------------- |
+| `inputChange`   |             | `CustomEvent<InputEvent>`                |
 | `selectedColor` |             | `CustomEvent<{ currentColor: string; }>` |
 
 

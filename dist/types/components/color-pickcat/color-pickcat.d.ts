@@ -2,6 +2,8 @@ import { EventEmitter } from '../../stencil-public-runtime';
 import { HsvaColor } from 'colord';
 import { Position, SelectedColorDetail } from '../cpc-color-area/cpc-color-area';
 import { HueEvent } from '../cpc-hue-control/cpc-hue-control';
+import { AlphaEvent } from '../cpc-alpha-control/cpc-alpha-control';
+import { InputEvent } from '../cpc-input-v1/cpc-input-v1';
 export interface ColorEvent {
   value: string;
 }
@@ -16,9 +18,14 @@ export declare class ColorPickcat {
   handlerPos?: Position;
   ref: HTMLElement;
   colorEvent: EventEmitter<ColorEvent>;
+  alphaEvent: EventEmitter<AlphaEvent>;
   private colorTypes;
   render(): any;
-  onColorMarker(): void;
+  onStateColorMarker(): void;
+  onStateAlphaValue(): void;
+  onInputAlphaChange(detail: InputEvent): void;
+  onInputColorChange(detail: InputEvent): void;
+  onAlphaValue(alpha: AlphaEvent): void;
   onSelectedColor(detail: SelectedColorDetail): void;
   onHueValue(color: HueEvent): void;
   convertColorType(type: string, color: string): string;
@@ -41,6 +48,7 @@ export declare class ColorPickcat {
   init(detail: SelectedColorDetail): void;
   setSelectedColorDetail(data: SelectedColorDetail): void;
   newSelectedColorDetail(color: string): SelectedColorDetail;
+  updateUIColor(color: string): void;
   handlerEyeDropper({ detail }: {
     detail: {
       sRGBHex: string;

@@ -43,7 +43,7 @@ export declare class CpcColorArea {
   updatePositionMarker(): void;
   updateColorMarker(): void;
   init(): void;
-  handlerMoveMarker: (e: MouseEvent) => void;
+  handlerMoveMarker: (e: MouseEvent & TouchEvent) => void;
   getColorArea(): string;
   convertToHSVA(x: number, y: number): {
     h: number;
@@ -59,14 +59,14 @@ export declare class CpcColorArea {
   handlerStateColorArea(): void;
   hanndlerStateColorMarker(): void;
   handleMouseDown(): void;
-  handleClick(e: MouseEvent): void;
+  handleClick(e: MouseEvent & TouchEvent): void;
   onHandlerPos(): void;
-  getPointerPosition(event: MouseEvent): {
+  getPointerPosition(event: MouseEvent & TouchEvent): {
     pageX: number;
     pageY: number;
   };
   setPositionMarker(x: number, y: number): void;
-  moveMarker(event: MouseEvent): void;
+  moveMarker(event: MouseEvent & TouchEvent): void;
   getSelectedColorDetail(): {
     color: {
       rgb: RgbaColor;

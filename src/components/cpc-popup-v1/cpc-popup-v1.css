@@ -18,5 +18,5 @@
 }
 
 :host {
-  @apply py-2.5 rounded-xl box-border;
+  @apply py-2.5 rounded-xl box-border z-50;
 }

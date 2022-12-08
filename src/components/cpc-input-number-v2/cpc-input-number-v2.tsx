@@ -2,6 +2,7 @@ import { Component, Host, h, Prop, State, Listen, Event, EventEmitter } from '@s
 
 import UpIcon from '../../assets/up+icon.svg';
 import DownIcon from '../../assets/down+icon.svg';
+import { InputEvent } from '../cpc-input-v1/cpc-input-v1';
 
 @Component({
   tag: 'cpc-input-number-v2',
@@ -17,6 +18,10 @@ export class CpcInputNumberV2 {
   @Event({ eventName: 'increment' }) incEvent: EventEmitter<{ value: number }>;
   @Event({ eventName: 'decrement' }) decEvent: EventEmitter<{ value: number }>;
 
+  @Event({ eventName: 'inputChange' }) inputChangeEvent: EventEmitter<InputEvent>;
+
+  @Event({ eventName: 'cleanSelection' }) cleanSelectionEvent: EventEmitter<InputEvent>;
+
   private numberOfTimesPressed = 0;
 
   private incPressed: boolean = false;
@@ -29,7 +34,12 @@ export class CpcInputNumberV2 {
     
     return (
       <Host>
-        <cpc-input-v1 class={`w-px h-8 grow cursor-text text-[#333333] text-sm`} value={this.value}></cpc-input-v1>
+        <cpc-input-v1
+          class={`w-px h-8 grow cursor-text text-[#333333] text-sm`} 
+          onInputChange={({ detail }) => this.onInputChangeEvent(detail)}
+          onInputCleanSelection={({ detail }) => this.onInputCleanSelection(detail)}
+          value={this.value}>
+        </cpc-input-v1>
         {
           this.label && !this.toggle ? (
             <div class='text-[10px] uppercase pr-2'>{this.label}</div>
@@ -51,6 +61,14 @@ export class CpcInputNumberV2 {
         </div>
       </Host>
     );
+  }
+
+  onInputChangeEvent(detail: InputEvent) {
+    this.inputChangeEvent.emit(detail);
+  }
+
+  onInputCleanSelection(detail: InputEvent) {
+    this.cleanSelectionEvent.emit({ cleanSelection: detail.cleanSelection });
   }
 
   incMouseDown() {
