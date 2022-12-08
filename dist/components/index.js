@@ -1,0 +1,14 @@
+export { setAssetPath, setPlatformOptions } from '@stencil/core/internal/client';
+export { ColorPickcat, defineCustomElement as defineCustomElementColorPickcat } from './color-pickcat.js';
+export { CpcAlphaControl, defineCustomElement as defineCustomElementCpcAlphaControl } from './cpc-alpha-control.js';
+export { CpcButtonV3, defineCustomElement as defineCustomElementCpcButtonV3 } from './cpc-button-v3.js';
+export { CpcColorArea, defineCustomElement as defineCustomElementCpcColorArea } from './cpc-color-area.js';
+export { CpcContainerV3, defineCustomElement as defineCustomElementCpcContainerV3 } from './cpc-container-v3.js';
+export { CpcDivisorV1, defineCustomElement as defineCustomElementCpcDivisorV1 } from './cpc-divisor-v1.js';
+export { CpcEyeDropper, defineCustomElement as defineCustomElementCpcEyeDropper } from './cpc-eye-dropper.js';
+export { CpcHueControl, defineCustomElement as defineCustomElementCpcHueControl } from './cpc-hue-control.js';
+export { CpcInputColor, defineCustomElement as defineCustomElementCpcInputColor } from './cpc-input-color.js';
+export { CpcInputNumberV2, defineCustomElement as defineCustomElementCpcInputNumberV2 } from './cpc-input-number-v2.js';
+export { CpcInputV1, defineCustomElement as defineCustomElementCpcInputV1 } from './cpc-input-v1.js';
+export { CpcMenuV1, defineCustomElement as defineCustomElementCpcMenuV1 } from './cpc-menu-v1.js';
+export { CpcPopupV1, defineCustomElement as defineCustomElementCpcPopupV1 } from './cpc-popup-v1.js';

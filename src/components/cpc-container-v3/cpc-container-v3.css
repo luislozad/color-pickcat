@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  height: 30px;
+  min-height: 30px;
+  border-radius: 8px;
+  background-color: #f3f3f3;
+}
+
+:host {
+  --border-color: transparent;
+}
+
+:host {
+  border: 1px solid var(--border-color) !important;
+}

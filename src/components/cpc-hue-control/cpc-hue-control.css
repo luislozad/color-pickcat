@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  position: relative;
+  background-image: linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%);
+  height: 8px;
+  border-radius: 4px;   
+}
+
+:host > input {
+  display: block;
+  height: 100%;
+  margin: 0;
+  background-color: transparent;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  width: 100%;
+}
+
+:host > #hue-marker-container {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  left: -3px;
+  height: 100%;
+  margin-left: 0px;
+  margin-right: 13px;
+}
+
+:host #hue-marker {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: white 0px 0px 0px 3px inset, rgba(0, 0, 0, 0.1) 0px 0px 0px 4px inset, rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+  pointer-events: none;  
+}

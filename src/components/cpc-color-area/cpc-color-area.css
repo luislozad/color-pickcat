@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 125px;
+  border-radius: 3px 3px 0 0;
+  background-image: linear-gradient(rgba(0,0,0,0), #000), linear-gradient(90deg, #fff, currentColor);
+  cursor: default;
+  position: relative;
+}
+
+:host > div {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background-color: currentColor;
+  cursor: pointer;  
+}

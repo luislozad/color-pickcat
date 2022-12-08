@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 1px;
+  border-radius: 0.125rem;
+}
+
+:host {
+  --bg-color: #e5e1e1;
+}
+
+:host {
+  background-color: var(--bg-color);
+}

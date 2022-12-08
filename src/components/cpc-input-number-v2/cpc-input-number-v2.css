@@ -1,0 +1,7 @@
+:host {
+  display: flex;
+}
+
+:host {
+  @apply h-8 pl-2 w-auto items-center bg-[#f3f3f3] text-[#999999] rounded-lg;
+}

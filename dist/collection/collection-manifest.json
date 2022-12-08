@@ -1,0 +1,24 @@
+{
+  "entries": [
+    "./components/cpc-color-area/cpc-color-area.js",
+    "./components/cpc-hue-control/cpc-hue-control.js",
+    "./components/color-pickcat/color-pickcat.js",
+    "./components/cpc-alpha-control/cpc-alpha-control.js",
+    "./components/cpc-input-v1/cpc-input-v1.js",
+    "./components/cpc-menu-v1/cpc-menu-v1.js",
+    "./components/cpc-button-v3/cpc-button-v3.js",
+    "./components/cpc-container-v3/cpc-container-v3.js",
+    "./components/cpc-divisor-v1/cpc-divisor-v1.js",
+    "./components/cpc-eye-dropper/cpc-eye-dropper.js",
+    "./components/cpc-input-color/cpc-input-color.js",
+    "./components/cpc-input-number-v2/cpc-input-number-v2.js",
+    "./components/cpc-popup-v1/cpc-popup-v1.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.20.0",
+    "typescriptVersion": "4.8.4"
+  },
+  "collections": [],
+  "bundles": []
+}

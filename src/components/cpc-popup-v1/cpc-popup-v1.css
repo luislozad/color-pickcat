@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  position: absolute;
+  box-shadow: 0 1px #0000000d,0 4px 10px rgba(0, 0, 0, 0.1);
+  width: max-content;
+}
+
+:host {
+  --bg-color: #fff;
+  --left: 0px;
+  --top: 0px;  
+}
+
+:host {
+  left: var(--left);
+  top: var(--top);
+  background-color: var(--bg-color);
+}
+
+:host {
+  @apply py-2.5 rounded-xl box-border;
+}
