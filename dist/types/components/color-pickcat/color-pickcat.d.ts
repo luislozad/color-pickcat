@@ -10,11 +10,11 @@ export interface ColorEvent {
 export declare class ColorPickcat {
   colorMarker?: string;
   colorArea?: string;
+  alphaValue: number;
   containerActive: boolean;
   inputSelection: boolean;
   colorAreaDetail?: SelectedColorDetail;
   colorType: string;
-  alphaValue: number;
   handlerPos?: Position;
   ref: HTMLElement;
   colorEvent: EventEmitter<ColorEvent>;

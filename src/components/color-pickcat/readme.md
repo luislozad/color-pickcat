@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property      | Attribute    | Description | Type     | Default                        |
-| ------------- | ------------ | ----------- | -------- | ------------------------------ |
-| `colorArea`   | `color-area` |             | `string` | `this.getColorArea('#a200ff')` |
-| `colorMarker` | `color`      |             | `string` | `'#703493'`                    |
+| Property      | Attribute    | Description | Type     | Default                               |
+| ------------- | ------------ | ----------- | -------- | ------------------------------------- |
+| `alphaValue`  | `alpha`      |             | `number` | `100`                                 |
+| `colorArea`   | `color-area` |             | `string` | `this.getColorArea(this.colorMarker)` |
+| `colorMarker` | `color`      |             | `string` | `'#703493'`                           |
 
 
 ## Events

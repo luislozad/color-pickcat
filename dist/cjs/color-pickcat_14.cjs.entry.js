@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-7ac7c99e.js');
+const index = require('./index-5f7d9006.js');
 
 function calcPositionPoint(hsv, opts) {
   const { width, height, radius } = opts;
@@ -43,16 +43,16 @@ const ColorPickcat = class {
     this.alphaEvent = index.createEvent(this, "alpha", 7);
     this.colorTypes = ['RGB', 'HSL', 'HEX'];
     this.colorMarker = '#703493';
-    this.colorArea = this.getColorArea('#a200ff');
+    this.colorArea = this.getColorArea(this.colorMarker);
+    this.alphaValue = 100;
     this.containerActive = false;
     this.inputSelection = false;
     this.colorAreaDetail = undefined;
     this.colorType = 'RGB';
-    this.alphaValue = 100;
     this.handlerPos = undefined;
   }
   render() {
-    return (index.h(index.Host, { class: 'clr-picker' }, index.h("cpc-color-area", { onLoadedComponent: ({ detail }) => this.init(detail.selectedColorDetail), colorMarker: this.colorMarker, colorArea: this.colorArea, handlerPos: this.handlerPos, onSelectedColor: ({ detail }) => this.onSelectedColor(detail) }), index.h("div", { class: 'flex' }, index.h("div", { class: 'space-y-2.5' }, index.h("cpc-hue-control", { value: w(this.colorArea).hue(), class: 'mt-2.5', onHueValue: ({ detail }) => this.onHueValue(detail) }), index.h("cpc-alpha-control", { alpha: this.alphaValue, onAlphaValue: ({ detail }) => this.onAlphaValue(detail), color: this.colorMarker }), index.h("cpc-input-color", { onInputChange: ({ detail }) => this.onInputColorChange(detail), value: this.convertColorType(this.colorType, this.colorMarker), colors: this.colorTypes, onSelectedColor: ({ detail }) => this.colorType = detail.currentColor })), index.h("div", { class: 'ml-2 flex flex-col w-16 justify-between' }, index.h("cpc-eye-dropper", { onGetColor: (e) => this.handlerEyeDropper(e), class: 'mt-2' }), index.h("cpc-input-alpha", { value: this.alphaValue, onInputAlphaChange: ({ detail }) => this.onInputAlphaChange(detail), onAlphaValue: ({ detail }) => this.onAlphaValue(detail) })))));
+    return (index.h(index.Host, null, index.h("cpc-color-area", { onLoadedComponent: ({ detail }) => this.init(detail.selectedColorDetail), colorMarker: this.colorMarker, colorArea: this.colorArea, handlerPos: this.handlerPos, onSelectedColor: ({ detail }) => this.onSelectedColor(detail) }), index.h("div", { class: 'flex' }, index.h("div", { class: 'space-y-2.5' }, index.h("cpc-hue-control", { value: w(this.colorArea).hue(), class: 'mt-2.5', onHueValue: ({ detail }) => this.onHueValue(detail) }), index.h("cpc-alpha-control", { alpha: this.alphaValue, onAlphaValue: ({ detail }) => this.onAlphaValue(detail), color: this.colorMarker }), index.h("cpc-input-color", { onInputChange: ({ detail }) => this.onInputColorChange(detail), value: this.convertColorType(this.colorType, this.colorMarker), colors: this.colorTypes, onSelectedColor: ({ detail }) => this.colorType = detail.currentColor })), index.h("div", { class: 'ml-2 flex flex-col w-16 justify-between' }, index.h("cpc-eye-dropper", { onGetColor: (e) => this.handlerEyeDropper(e), class: 'mt-2' }), index.h("cpc-input-alpha", { value: this.alphaValue, onInputAlphaChange: ({ detail }) => this.onInputAlphaChange(detail), onAlphaValue: ({ detail }) => this.onAlphaValue(detail) })))));
   }
   onStateColorMarker() {
     this.colorEvent.emit({ value: this.colorMarker });

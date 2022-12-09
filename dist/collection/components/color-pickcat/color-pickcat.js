@@ -5,16 +5,16 @@ export class ColorPickcat {
   constructor() {
     this.colorTypes = ['RGB', 'HSL', 'HEX'];
     this.colorMarker = '#703493';
-    this.colorArea = this.getColorArea('#a200ff');
+    this.colorArea = this.getColorArea(this.colorMarker);
+    this.alphaValue = 100;
     this.containerActive = false;
     this.inputSelection = false;
     this.colorAreaDetail = undefined;
     this.colorType = 'RGB';
-    this.alphaValue = 100;
     this.handlerPos = undefined;
   }
   render() {
-    return (h(Host, { class: 'clr-picker' }, h("cpc-color-area", { onLoadedComponent: ({ detail }) => this.init(detail.selectedColorDetail), colorMarker: this.colorMarker, colorArea: this.colorArea, handlerPos: this.handlerPos, onSelectedColor: ({ detail }) => this.onSelectedColor(detail) }), h("div", { class: 'flex' }, h("div", { class: 'space-y-2.5' }, h("cpc-hue-control", { value: colord(this.colorArea).hue(), class: 'mt-2.5', onHueValue: ({ detail }) => this.onHueValue(detail) }), h("cpc-alpha-control", { alpha: this.alphaValue, onAlphaValue: ({ detail }) => this.onAlphaValue(detail), color: this.colorMarker }), h("cpc-input-color", { onInputChange: ({ detail }) => this.onInputColorChange(detail), value: this.convertColorType(this.colorType, this.colorMarker), colors: this.colorTypes, onSelectedColor: ({ detail }) => this.colorType = detail.currentColor })), h("div", { class: 'ml-2 flex flex-col w-16 justify-between' }, h("cpc-eye-dropper", { onGetColor: (e) => this.handlerEyeDropper(e), class: 'mt-2' }), h("cpc-input-alpha", { value: this.alphaValue, onInputAlphaChange: ({ detail }) => this.onInputAlphaChange(detail), onAlphaValue: ({ detail }) => this.onAlphaValue(detail) })))));
+    return (h(Host, null, h("cpc-color-area", { onLoadedComponent: ({ detail }) => this.init(detail.selectedColorDetail), colorMarker: this.colorMarker, colorArea: this.colorArea, handlerPos: this.handlerPos, onSelectedColor: ({ detail }) => this.onSelectedColor(detail) }), h("div", { class: 'flex' }, h("div", { class: 'space-y-2.5' }, h("cpc-hue-control", { value: colord(this.colorArea).hue(), class: 'mt-2.5', onHueValue: ({ detail }) => this.onHueValue(detail) }), h("cpc-alpha-control", { alpha: this.alphaValue, onAlphaValue: ({ detail }) => this.onAlphaValue(detail), color: this.colorMarker }), h("cpc-input-color", { onInputChange: ({ detail }) => this.onInputColorChange(detail), value: this.convertColorType(this.colorType, this.colorMarker), colors: this.colorTypes, onSelectedColor: ({ detail }) => this.colorType = detail.currentColor })), h("div", { class: 'ml-2 flex flex-col w-16 justify-between' }, h("cpc-eye-dropper", { onGetColor: (e) => this.handlerEyeDropper(e), class: 'mt-2' }), h("cpc-input-alpha", { value: this.alphaValue, onInputAlphaChange: ({ detail }) => this.onInputAlphaChange(detail), onAlphaValue: ({ detail }) => this.onAlphaValue(detail) })))));
   }
   onStateColorMarker() {
     this.colorEvent.emit({ value: this.colorMarker });
@@ -195,7 +195,25 @@ export class ColorPickcat {
         },
         "attribute": "color-area",
         "reflect": false,
-        "defaultValue": "this.getColorArea('#a200ff')"
+        "defaultValue": "this.getColorArea(this.colorMarker)"
+      },
+      "alphaValue": {
+        "type": "number",
+        "mutable": true,
+        "complexType": {
+          "original": "number",
+          "resolved": "number",
+          "references": {}
+        },
+        "required": false,
+        "optional": false,
+        "docs": {
+          "tags": [],
+          "text": ""
+        },
+        "attribute": "alpha",
+        "reflect": true,
+        "defaultValue": "100"
       }
     };
   }
@@ -205,7 +223,6 @@ export class ColorPickcat {
       "inputSelection": {},
       "colorAreaDetail": {},
       "colorType": {},
-      "alphaValue": {},
       "handlerPos": {}
     };
   }
