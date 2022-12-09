@@ -71,7 +71,7 @@ There are three strategies we recommend for using web components built with Sten
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### Node Modules
-- Run `npm install my-component --save`
+- Run `npm install color-pickcat --save`
 - Put a script tag similar to this `<script type='module' src='node_modules/color-pickcat/dist/color-pickcat/color-pickcat.esm.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
