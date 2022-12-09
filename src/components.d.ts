@@ -16,6 +16,7 @@ import { InputEvent as InputEvent1 } from "./components/cpc-input-v1/cpc-input-v
 import { CpcMenuV1Hover, CpcMenuV1Item, CpcMenuV1Props } from "./components/cpc-menu-v1/cpc-menu-v1";
 export namespace Components {
     interface ColorPickcat {
+        "alphaValue": number;
         "colorArea"?: string;
         "colorMarker"?: string;
     }
@@ -213,6 +214,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface ColorPickcat {
+        "alphaValue"?: number;
         "colorArea"?: string;
         "colorMarker"?: string;
         "onAlpha"?: (event: ColorPickcatCustomEvent<AlphaEvent>) => void;

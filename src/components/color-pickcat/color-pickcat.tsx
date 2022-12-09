@@ -25,7 +25,8 @@ export class ColorPickcat {
       colorArea: #a200ff      
   */
   @Prop({ mutable: true, attribute: 'color' }) colorMarker?: string = '#703493';
-  @Prop({ mutable: true }) colorArea?: string = this.getColorArea('#a200ff');
+  @Prop({ mutable: true }) colorArea?: string = this.getColorArea(this.colorMarker);
+  @Prop({ mutable: true, reflect: true, attribute: 'alpha' }) alphaValue: number = 100;
 
   @State() containerActive: boolean = false;
   @State() inputSelection: boolean = false;
@@ -34,7 +35,6 @@ export class ColorPickcat {
   
   @State() colorType: string = 'RGB';
 
-  @State() alphaValue: number = 100;
 
   @State() handlerPos?: Position;
 
@@ -47,7 +47,7 @@ export class ColorPickcat {
 
   render() {
     return (
-      <Host class='clr-picker'>
+      <Host>
 
         <cpc-color-area 
           onLoadedComponent={({ detail }) => this.init(detail.selectedColorDetail)} 
