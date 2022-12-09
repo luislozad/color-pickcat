@@ -2,7 +2,7 @@
 
 # Color Pickcat
 
-<img src="https://github.com/luislozad/color-pickcat/raw/main/cover.png" />
+<img height='100%' src="https://github.com/luislozad/color-pickcat/raw/main/cover.png" />
 
 A elegant JavaScript Color Picker written in StencilJS, can be used with vanilla JS, React, Vue, Etc..
 It is built with web technologies components
