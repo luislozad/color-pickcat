@@ -82,3 +82,6 @@ There are three strategies we recommend for using web components built with Sten
 - Run `npm install color-pickcat --save`
 - Add an import to the npm packages `import color-pickcat;`
 - Then you can use the element anywhere in your template, JSX, html etc
+
+## Show your support
+<a href="https://www.buymeacoffee.com/luislzdev" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height= "60px" width= "217px" ></a>
