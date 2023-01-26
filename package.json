@@ -31,7 +31,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.13.0",
+    "@stencil/core": "^2.21.0",
     "colord": "^2.9.3"
   },
   "devDependencies": {
